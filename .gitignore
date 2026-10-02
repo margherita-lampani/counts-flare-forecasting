@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+.ipynb_checkpoints/
+
+# Local data and original results (not versioned)
+/data/
+/results/
+/ARCAFF_FINAL/
+/Data-cut-flare-number-padded
+
+# Training outputs
+checkpoints/
+lightning_logs/
+.comet.config
+*.ckpt
+*_hek_cache.pkl
+
+# Figures saved by the notebook in the working directory
+/calib_*.png

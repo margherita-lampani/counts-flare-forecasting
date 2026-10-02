@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "flare-forecast"
+version = "0.1.0"
+description = "Poisson and binary CNNs for solar flare forecasting from AR magnetograms"
+requires-python = ">=3.9"
+dependencies = [
+  "torch", "torchvision", "pytorch-lightning", "torchmetrics",
+  "numpy", "pandas", "scipy", "h5py", "scikit-learn",
+  "scikit-image", "astropy", "sunpy[map]", "pyyaml", "comet-ml",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+

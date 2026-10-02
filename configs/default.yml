@@ -1,0 +1,72 @@
+mode: poisson
+data:
+  data_file: path/to/preprocessed_arcaff_dataset.csv
+  target_cols:
+    - C_count
+    - M_count
+    - X_count
+  feature_cols:
+    #[]
+    #- tot_us_flux
+    #- tot_flux
+    - datamin
+    - datamax
+  file_col:     filename
+  val_split:    1
+  test:         test_d
+  dim:          128
+  channels:
+    - 0
+  augmentation: conservative
+  maxval:       500
+  forecast_window: 24
+  use_zarr_dataset: false
+  zarr_file:    null
+  balance_ratio: 0
+
+model:
+  n_blocks:      5
+  base_channels: 16
+  fc_hidden:     256
+  head_hidden:   64
+  pooling_type:  gap
+  kernel_size:   5
+  dropout_ratio: 0.45
+  use_skip:      true
+  checkpoint_location: null
+  load_checkpoint:     false
+
+training:
+  epochs:     150
+  lr:         0.0001
+  wd:         0.001
+  batch_size: 128
+  scheduler:  cosine_warmup
+  device:     gpu
+  devices:    1
+  patience:   20
+  w_C:        1.0
+  w_M:        50.0
+  w_X:        200.0
+  alpha_M:    3.0
+  alpha_X:    5.0
+  w_C_binary:   1.0
+  w_M_binary:  30.0
+  w_X_binary: 300.0
+  monitor_metric:        val_TSS_C #val_loss
+  monitor_metric_binary: val_TSS_C #val_loss
+  tss_primary_key:       M
+
+comet:
+  enabled:             true
+  project_name:        <COMET_PROJECT>
+  optuna_project_name: <COMET_OPTUNA_PROJECT>
+  workspace:           <COMET_WORKSPACE>
+  experiment_name:     <RUN_NAME>
+  log_code:            true
+
+testing:
+  eval:    true
+  tau_min: 0.01
+  tau_max: 2.0
+  n_tau:   500
